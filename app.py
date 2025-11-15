@@ -1,5 +1,4 @@
 import streamlit as st
-from qiskit import QuantumCircuit, execute, Aer
 import numpy as np
 import random
 
@@ -13,18 +12,7 @@ if st.button("Ask the Quantum Oracle"):
     # Turn phone input into a seed
     seed = int(phone) if phone.isdigit() else 0
     np.random.seed(seed)
-
-    # Create a tiny quantum circuit
-    qc = QuantumCircuit(2, 2)
-    qc.h([0, 1])          # Put qubits in superposition
-    qc.measure_all()      # Collapse the wavefunction
-
-    # Run on IBM's free simulator
-    backend = Aer.get_backend('qasm_simulator')
-    job = execute(qc, backend, shots=1)
-    result = job.result()
-    counts = result.get_counts()
-    outcome = list(counts.keys())[0]
+    outcome = random.choice(['00', '01', '10', '11'])
 
     # List of fake fortunes
     fates = [
